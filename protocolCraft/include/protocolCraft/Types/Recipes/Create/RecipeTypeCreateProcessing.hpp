@@ -1,6 +1,7 @@
 #pragma once
 
 #if PROTOCOL_VERSION >= 763 /* > 1.20.1 */
+#include "protocolCraft/Types/Recipes/Create/CreateProcessingOutput.hpp"
 #include "protocolCraft/Types/Recipes/RecipeTypeData.hpp"
 #include "protocolCraft/Types/Recipes/Ingredient.hpp"
 #include "protocolCraft/Types/Slot.hpp"
@@ -15,9 +16,9 @@ namespace ProtocolCraft
 
         }
 
-        void SetGroup(const std::string& group_)
+        void SetProcessingOuput(const std::vector<CreateProcessingOutput>& results_)
         {
-            group = group_;
+            results = results_;
         }
 
         void SetIngredients(const std::vector<Ingredient>& ingredients_)
@@ -31,9 +32,9 @@ namespace ProtocolCraft
         }
 
 
-        const std::string& GetGroup() const
+        const std::vector<CreateProcessingOutput>& GetProcessingOuput() const
         {
-            return group;
+            return results;
         }
 
         const std::vector<Ingredient>& GetIngredients() const
@@ -49,14 +50,14 @@ namespace ProtocolCraft
     protected:
         virtual void ReadImpl(ReadIterator& iter, size_t& length) override
         {
-            group = ReadData<std::string>(iter, length);
+            results = ReadVector<CreateProcessingOutput>(iter, length);
             ingredients = ReadVector<Ingredient>(iter, length);
             result = ReadData<Slot>(iter, length);
         }
 
         virtual void WriteImpl(WriteContainer& container) const override
         {
-            WriteData<std::string>(group, container);
+            WriteVector<CreateProcessingOutput>(results, container);
             WriteVector<Ingredient>(ingredients, container);
             WriteData<Slot>(result, container);
         }
@@ -65,7 +66,7 @@ namespace ProtocolCraft
         {
             Json::Value output;
 
-            output["group"] = group;
+            output["results"] = results;
             output["ingredient"] = ingredients;
             output["result"] = result;
 
@@ -73,7 +74,7 @@ namespace ProtocolCraft
         }
 
     private:
-        std::string group;
+        std::vector<CreateProcessingOutput> results;
         std::vector<Ingredient> ingredients;
         Slot result;
     };
