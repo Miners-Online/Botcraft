@@ -346,6 +346,8 @@ set(protocolCraft_PUBLIC_HDR
     include/protocolCraft/Types/Recipes/RecipeTypeDataSmithingTrim.hpp
     include/protocolCraft/Types/Recipes/RecipeTypeDataSmoking.hpp
     include/protocolCraft/Types/Recipes/RecipeTypeDataStoneCutting.hpp
+    include/protocolCraft/Types/Recipes/Create/CreateProcessingOutput.hpp
+    include/protocolCraft/Types/Recipes/Create/RecipeTypeCreateProcessing.hpp
 
     include/protocolCraft/Types/Sound/SoundEvent.hpp
 
